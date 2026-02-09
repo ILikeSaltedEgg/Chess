@@ -9,15 +9,17 @@ body {
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
     color: #ffffff;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 20px;
+    overflow-x: hidden;
 }
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Auth Screen Styles */
@@ -27,7 +29,7 @@ body {
     border-radius: 0;
     padding: 40px;
     max-width: 400px;
-    margin: 0 auto;
+    margin: auto;
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.1),
                 inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
@@ -129,56 +131,132 @@ body {
 
 .game-screen {
     display: none;
+    flex-direction: column;
+    height: 100%;
+    gap: 20px;
 }
 
-/* Game Screen Styles */
+/* Compact Game Header */
 .game-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    background: #0a0a0a;
-    padding: 20px;
+    padding: 15px 20px;
+    background: rgba(10, 10, 10, 0.9);
     border: 2px solid #ffffff;
     border-radius: 0;
+    backdrop-filter: blur(10px);
+    height: 70px;
 }
 
-.user-info {
-    font-size: 1.2em;
-    text-transform: uppercase;
+.header-left h1 {
+    font-size: 1.8em;
+    text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2);
     letter-spacing: 2px;
 }
 
-.logout-btn {
-    padding: 10px 20px;
-    background: #000000;
+/* Profile Menu Styles */
+.profile-menu {
+    position: relative;
+    z-index: 1000;
+}
+
+.profile-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid #ffffff;
     border-radius: 0;
-    color: #ffffff;
     cursor: pointer;
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     transition: all 0.3s;
+    min-width: 180px;
 }
 
-.logout-btn:hover {
-    background: #ffffff;
-    color: #000000;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.profile-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-.game-container {
+.profile-toggle i:first-child {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.profile-toggle i:last-child {
+    font-size: 12px;
+    margin-left: auto;
+    transition: transform 0.3s;
+}
+
+.profile-toggle.active i:last-child {
+    transform: rotate(180deg);
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background: #0a0a0a;
+    border: 2px solid #ffffff;
+    border-top: none;
+    margin-top: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item {
+    padding: 15px 20px;
     display: flex;
-    gap: 30px;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 5px 0;
+}
+
+/* Main Game Area */
+.main-game-area {
+    flex: 1;
+    display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 /* Chess Board Styles */
 .board-wrapper {
     perspective: 1000px;
+    transform: scale(1.1);
 }
 
 .board {
@@ -188,7 +266,8 @@ body {
     gap: 0;
     transform: rotateX(30deg) rotateZ(-15deg);
     transform-style: preserve-3d;
-    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.2),
+                0 0 100px rgba(255, 255, 255, 0.1);
     border: 4px solid #ffffff;
 }
 
@@ -225,6 +304,7 @@ body {
 .square.selected {
     background: #666666 !important;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    transform: translateZ(5px);
 }
 
 .square.valid-move {
@@ -250,6 +330,8 @@ body {
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.8));
     user-select: none;
     image-rendering: pixelated;
+    position: relative;
+    z-index: 2;
 }
 
 /* Make white pieces actually white and black pieces black */
@@ -261,95 +343,158 @@ body {
     color: #ffffff;
 }
 
-/* Game Info Panel */
-.game-info {
+/* Game Info Panel at Bottom */
+.game-info-panel {
     background: #0a0a0a;
-    padding: 30px;
     border: 2px solid #ffffff;
     border-radius: 0;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    min-height: 180px;
+    box-shadow: 0 -10px 30px rgba(255, 255, 255, 0.1);
 }
 
-.game-info h2 {
-    margin-bottom: 20px;
+.game-info-header {
+    padding: 15px 20px;
+    border-bottom: 2px solid #ffffff;
+}
+
+.game-info-header h2 {
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border-bottom: 2px solid #ffffff;
-    padding-bottom: 10px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-info-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.turn-section, .status-section, .controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.turn-label, .status-label {
+    font-size: 0.8em;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
 }
 
 .turn-indicator {
-    font-size: 1.3em;
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     padding: 15px;
     background: #000000;
     border: 2px solid #ffffff;
     border-radius: 0;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 1.2em;
     font-weight: bold;
+}
+
+.turn-piece {
+    font-size: 1.5em;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.turn-text {
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .status-message {
-    margin-top: 20px;
     padding: 15px;
     background: #000000;
     border: 2px solid #ffffff;
     border-radius: 0;
-    text-align: center;
     font-size: 1.1em;
+    text-align: center;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.status-message.check {
-    background: #1a1a1a;
-    color: #ffffff;
-    border-color: #ffffff;
-    animation: pulse 1s infinite;
+.controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.status-message.checkmate {
-    background: #ffffff;
-    color: #000000;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    animation: flash 0.5s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-}
-
-@keyframes flash {
-    0%, 100% { background: #ffffff; color: #000000; }
-    50% { background: #000000; color: #ffffff; }
-}
-
-.new-game-btn {
-    width: 100%;
-    padding: 12px;
-    background: #ffffff;
+.control-btn {
+    padding: 12px 20px;
+    background: #000000;
     border: 2px solid #ffffff;
     border-radius: 0;
-    color: #000000;
-    font-size: 1em;
+    color: #ffffff;
     font-family: 'Courier New', monospace;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
     transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.control-btn:hover {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.new-game-btn {
+    background: #ffffff;
+    color: #000000;
 }
 
 .new-game-btn:hover {
     background: #000000;
     color: #ffffff;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Check and Checkmate animations */
+.status-message.check {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #ff0000;
+    animation: pulse-red 1s infinite;
+}
+
+.status-message.checkmate {
+    background: linear-gradient(45deg, #000000, #ff0000, #000000);
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: flash-red 0.5s infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+    50% { opacity: 0.6; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+}
+
+@keyframes flash-red {
+    0%, 100% { 
+        background: linear-gradient(45deg, #000000, #ff0000, #000000);
+        color: #ffffff;
+    }
+    50% { 
+        background: linear-gradient(45deg, #ff0000, #000000, #ff0000);
+        color: #000000;
+    }
 }
 
 .hidden {
@@ -372,4 +517,69 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #cccccc;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .board {
+        grid-template-columns: repeat(8, 60px);
+        grid-template-rows: repeat(8, 60px);
+    }
+    
+    .square {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .piece {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 900px) {
+    .game-info-content {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .controls-section {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .control-btn {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .board {
+        grid-template-columns: repeat(8, 50px);
+        grid-template-rows: repeat(8, 50px);
+    }
+    
+    .square {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .piece {
+        font-size: 30px;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .profile-toggle {
+        min-width: 150px;
+    }
+    
+    .game-info-header h2 {
+        font-size: 1em;
+    }
 }
