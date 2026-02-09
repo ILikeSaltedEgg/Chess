@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Pixel Chess</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -48,25 +49,81 @@
 
         <!-- Game Screen -->
         <div id="gameScreen" class="game-screen">
+            <!-- Compact Header with Profile Menu -->
             <div class="game-header">
-                <div class="user-info">
-                    Welcome, <span id="currentUser"></span>!
+                <div class="header-left">
+                    <h1>♟️ PIXEL CHESS</h1>
                 </div>
-                <button class="logout-btn" onclick="logout()">LOGOUT</button>
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <div class="profile-toggle" onclick="toggleProfileMenu()">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="currentUser">Guest</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div id="profileDropdown" class="profile-dropdown hidden">
+                            <div class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Statistics</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="game-container">
-                <div class="board-wrapper">
-                    <div id="chessBoard" class="board"></div>
-                </div>
-
-                <div class="game-info">
-                    <h2>GAME STATUS</h2>
-                    <div class="turn-indicator" id="turnIndicator">
-                        White's Turn
+            <!-- Main Game Area -->
+            <div class="main-game-area">
+                <!-- 3D Chess Board in Center -->
+                <div class="board-container">
+                    <div class="board-wrapper">
+                        <div id="chessBoard" class="board"></div>
                     </div>
-                    <div id="statusMessage" class="status-message hidden"></div>
-                    <button class="new-game-btn" onclick="newGame()">NEW GAME</button>
+                </div>
+            </div>
+
+            <!-- Game Info Panel at Bottom -->
+            <div class="game-info-panel">
+                <div class="game-info-header">
+                    <h2><i class="fas fa-chess-board"></i> GAME STATUS</h2>
+                </div>
+                <div class="game-info-content">
+                    <div class="turn-section">
+                        <div class="turn-label">CURRENT TURN</div>
+                        <div class="turn-indicator" id="turnIndicator">
+                            <span class="turn-piece">♔</span>
+                            <span class="turn-text">White's Turn</span>
+                        </div>
+                    </div>
+                    
+                    <div class="status-section">
+                        <div class="status-label">GAME STATUS</div>
+                        <div id="statusMessage" class="status-message">Game in Progress</div>
+                    </div>
+                    
+                    <div class="controls-section">
+                        <button class="control-btn new-game-btn" onclick="newGame()">
+                            <i class="fas fa-redo"></i> NEW GAME
+                        </button>
+                        <button class="control-btn hint-btn" onclick="showHint()">
+                            <i class="fas fa-lightbulb"></i> HINT
+                        </button>
+                        <button class="control-btn undo-btn" onclick="undoMove()">
+                            <i class="fas fa-undo"></i> UNDO
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
