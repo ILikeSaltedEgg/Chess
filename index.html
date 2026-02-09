@@ -49,7 +49,7 @@
 
         <!-- Game Screen -->
         <div id="gameScreen" class="game-screen">
-            <!-- Compact Header with Profile Menu -->
+            <!-- Header -->
             <div class="game-header">
                 <div class="header-left">
                     <h1>♟️ PIXEL CHESS</h1>
@@ -84,45 +84,50 @@
                 </div>
             </div>
 
-            <!-- Main Game Area -->
-            <div class="main-game-area">
-                <!-- 3D Chess Board in Center -->
+            <!-- Main Content -->
+            <div class="game-content">
+                <!-- Chess Board -->
                 <div class="board-container">
                     <div class="board-wrapper">
                         <div id="chessBoard" class="board"></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Game Info Panel at Bottom -->
-            <div class="game-info-panel">
-                <div class="game-info-header">
-                    <h2><i class="fas fa-chess-board"></i> GAME STATUS</h2>
-                </div>
-                <div class="game-info-content">
-                    <div class="turn-section">
-                        <div class="turn-label">CURRENT TURN</div>
-                        <div class="turn-indicator" id="turnIndicator">
-                            <span class="turn-piece">♔</span>
-                            <span class="turn-text">White's Turn</span>
+                <!-- Game Controls -->
+                <div class="game-controls">
+                    <div class="control-panel">
+                        <div class="panel-section">
+                            <div class="section-header">
+                                <i class="fas fa-info-circle"></i>
+                                <span>GAME STATUS</span>
+                            </div>
+                            <div class="turn-indicator" id="turnIndicator">
+                                <span class="turn-piece">♔</span>
+                                <span class="turn-text">White's Turn</span>
+                            </div>
+                            <div id="statusMessage" class="status-message hidden">Game in Progress</div>
                         </div>
-                    </div>
-                    
-                    <div class="status-section">
-                        <div class="status-label">GAME STATUS</div>
-                        <div id="statusMessage" class="status-message">Game in Progress</div>
-                    </div>
-                    
-                    <div class="controls-section">
-                        <button class="control-btn new-game-btn" onclick="newGame()">
-                            <i class="fas fa-redo"></i> NEW GAME
-                        </button>
-                        <button class="control-btn hint-btn" onclick="showHint()">
-                            <i class="fas fa-lightbulb"></i> HINT
-                        </button>
-                        <button class="control-btn undo-btn" onclick="undoMove()">
-                            <i class="fas fa-undo"></i> UNDO
-                        </button>
+
+                        <div class="panel-section">
+                            <div class="section-header">
+                                <i class="fas fa-gamepad"></i>
+                                <span>CONTROLS</span>
+                            </div>
+                            <div class="button-group">
+                                <button class="control-btn" onclick="newGame()">
+                                    <i class="fas fa-redo"></i>
+                                    <span>NEW GAME</span>
+                                </button>
+                                <button class="control-btn" onclick="showHint()">
+                                    <i class="fas fa-lightbulb"></i>
+                                    <span>HINT</span>
+                                </button>
+                                <button class="control-btn" onclick="undoMove()">
+                                    <i class="fas fa-undo"></i>
+                                    <span>UNDO</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
