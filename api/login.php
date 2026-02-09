@@ -16,7 +16,6 @@ if (!$data) {
 $username = trim($data['username'] ?? '');
 $password = $data['password'] ?? '';
 
-// Validation
 if (empty($username) || empty($password)) {
     echo json_encode([
         'success' => false,
@@ -41,7 +40,6 @@ if ($result->num_rows === 0) {
 
 $user = $result->fetch_assoc();
 
-// Verify password
 if (!password_verify($password, $user['password'])) {
     echo json_encode([
         'success' => false,
@@ -50,12 +48,10 @@ if (!password_verify($password, $user['password'])) {
     exit;
 }
 
-// Update last login
 $stmt = $conn->prepare("UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE user_id = ?");
 $stmt->bind_param("i", $user['user_id']);
 $stmt->execute();
 
-// Set session
 $_SESSION['user_id'] = $user['user_id'];
 $_SESSION['username'] = $user['username'];
 
@@ -68,4 +64,5 @@ echo json_encode([
 
 $stmt->close();
 $conn->close();
+
 ?>
