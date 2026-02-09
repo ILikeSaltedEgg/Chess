@@ -1,10 +1,8 @@
-// Chess piece Unicode characters (pixelated style)
 const pieces = {
     'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
     'k': '♚', 'q': '♛', 'r': '♜', 'b': '♝', 'n': '♞', 'p': '♟'
 };
 
-// Initial board setup
 const initialBoard = [
     ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
     ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -22,12 +20,9 @@ let currentTurn = 'white';
 let gameOver = false;
 let currentUsername = null;
 
-// API base URL
 const API_BASE = 'api/';
 
-// ============================================
-// AUTH FUNCTIONS
-// ============================================
+============
 
 function showSignup() {
     document.getElementById('loginForm').classList.add('hidden');
@@ -137,7 +132,7 @@ async function login() {
 
 async function logout() {
     try {
-        // Save game state before logging out
+        
         if (currentUsername) {
             await saveGameState();
         }
@@ -149,29 +144,25 @@ async function logout() {
         const data = await response.json();
         
         if (data.success) {
-            // Reset UI
+           
             currentUsername = null;
             document.getElementById('authScreen').style.display = 'block';
             document.getElementById('gameScreen').classList.remove('active');
             document.getElementById('loginUsername').value = '';
             document.getElementById('loginPassword').value = '';
             
-            // Reset game state
+            
             newGame();
         }
     } catch (error) {
         console.error('Logout error:', error);
-        // Still proceed with local logout
+        
         currentUsername = null;
         document.getElementById('authScreen').style.display = 'block';
         document.getElementById('gameScreen').classList.remove('active');
         newGame();
     }
 }
-
-// ============================================
-// GAME STATE MANAGEMENT
-// ============================================
 
 async function saveGameState() {
     if (!currentUsername) return;
@@ -216,7 +207,7 @@ async function loadGameState() {
             currentTurn = data.currentTurn;
             gameOver = data.gameOver;
         } else {
-            // No saved game, start new one
+            
             newGame();
         }
         
@@ -242,7 +233,6 @@ function newGame() {
     }
 }
 
-// Check authentication on page load
 async function checkAuth() {
     try {
         const response = await fetch(API_BASE + 'checkauth.php', {
@@ -262,10 +252,6 @@ async function checkAuth() {
         console.error('Auth check error:', error);
     }
 }
-
-// ============================================
-// BOARD RENDERING
-// ============================================
 
 function renderBoard() {
     const boardElement = document.getElementById('chessBoard');
@@ -297,10 +283,6 @@ function updateTurnIndicator() {
     indicator.textContent = currentTurn === 'white' ? "White's Turn" : "Black's Turn";
 }
 
-// ============================================
-// GAME INTERACTION
-// ============================================
-
 function handleSquareClick(row, col) {
     if (gameOver) return;
 
@@ -311,7 +293,7 @@ function handleSquareClick(row, col) {
         const selectedPiece = board[selectedRow][selectedCol];
         
         if (isValidMove(selectedRow, selectedCol, row, col)) {
-            // Make the move
+            
             board[row][col] = selectedPiece;
             board[selectedRow][selectedCol] = ' ';
             
@@ -323,12 +305,12 @@ function handleSquareClick(row, col) {
             checkGameStatus();
             saveGameState();
         } else {
-            // Deselect
+            
             selectedSquare = null;
             renderBoard();
         }
     } else {
-        // Select a piece
+       
         if (piece !== ' ' && isPieceOwnedByCurrentPlayer(piece)) {
             selectedSquare = [row, col];
             highlightSquare(row, col);
@@ -367,17 +349,12 @@ function showValidMoves(row, col) {
     });
 }
 
-// ============================================
-// MOVE VALIDATION
-// ============================================
-
 function isValidMove(fromRow, fromCol, toRow, toCol) {
     if (fromRow === toRow && fromCol === toCol) return false;
     
     const piece = board[fromRow][fromCol];
     const targetPiece = board[toRow][toCol];
     
-    // Can't capture your own piece
     if (targetPiece !== ' ' && isPieceOwnedByCurrentPlayer(targetPiece)) {
         return false;
     }
@@ -406,7 +383,6 @@ function isValidPawnMove(fromRow, fromCol, toRow, toCol, piece) {
     const direction = piece === piece.toUpperCase() ? -1 : 1;
     const startRow = piece === piece.toUpperCase() ? 6 : 1;
     
-    // Forward move
     if (fromCol === toCol && board[toRow][toCol] === ' ') {
         if (toRow === fromRow + direction) return true;
         if (fromRow === startRow && toRow === fromRow + 2 * direction && board[fromRow + direction][toCol] === ' ') {
@@ -414,7 +390,6 @@ function isValidPawnMove(fromRow, fromCol, toRow, toCol, piece) {
         }
     }
     
-    // Diagonal capture
     if (Math.abs(fromCol - toCol) === 1 && toRow === fromRow + direction) {
         if (board[toRow][toCol] !== ' ' && !isPieceOwnedByCurrentPlayer(board[toRow][toCol])) {
             return true;
@@ -465,10 +440,6 @@ function isPathClear(fromRow, fromCol, toRow, toCol) {
     return true;
 }
 
-// ============================================
-// GAME STATUS
-// ============================================
-
 function checkGameStatus() {
     const statusMessage = document.getElementById('statusMessage');
     
@@ -495,25 +466,17 @@ function isKingCaptured() {
     return true;
 }
 
-// ============================================
-// INITIALIZATION
-// ============================================
-
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     renderBoard();
     checkAuth();
 });
-// ============================================
-// UI FUNCTIONS
-// ============================================
+
 
 function toggleProfileMenu() {
     const dropdown = document.getElementById('profileDropdown');
     dropdown.classList.toggle('hidden');
 }
 
-// Close dropdown when clicking outside
 window.addEventListener('click', function(event) {
     const profileMenu = document.querySelector('.profile-menu');
     const dropdown = document.getElementById('profileDropdown');
@@ -529,4 +492,5 @@ function showHint() {
 
 function undoMove() {
     alert('Undo feature coming soon!');
+
 }
