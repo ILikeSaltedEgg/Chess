@@ -503,4 +503,58 @@ function isKingCaptured() {
 document.addEventListener('DOMContentLoaded', function() {
     renderBoard();
     checkAuth();
+
 });
+
+// Add these functions to your existing script.js
+
+// Toggle profile menu
+function toggleProfileMenu() {
+    const dropdown = document.getElementById('profileDropdown');
+    const toggle = document.querySelector('.profile-toggle');
+    
+    dropdown.classList.toggle('hidden');
+    toggle.classList.toggle('active');
+}
+
+// Close profile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const profileMenu = document.querySelector('.profile-menu');
+    const dropdown = document.getElementById('profileDropdown');
+    
+    if (!profileMenu.contains(event.target) && !dropdown.classList.contains('hidden')) {
+        dropdown.classList.add('hidden');
+        document.querySelector('.profile-toggle').classList.remove('active');
+    }
+});
+
+// Placeholder functions for new buttons (you can implement these later)
+function showHint() {
+    alert('Hint feature coming soon!');
+}
+
+function undoMove() {
+    alert('Undo feature coming soon!');
+}
+
+// Update the turn indicator with piece color
+function updateTurnIndicator() {
+    const indicator = document.getElementById('turnIndicator');
+    const turnPiece = indicator.querySelector('.turn-piece');
+    const turnText = indicator.querySelector('.turn-text');
+    
+    if (currentTurn === 'white') {
+        turnPiece.textContent = '♔';
+        turnPiece.style.color = '#ffffff';
+        turnPiece.style.textShadow = '0 0 10px #ffffff';
+        turnText.textContent = "White's Turn";
+    } else {
+        turnPiece.textContent = '♚';
+        turnPiece.style.color = '#000000';
+        turnPiece.style.textShadow = '0 0 10px #ffffff';
+        turnText.textContent = "Black's Turn";
+    }
+}
+
+// Update the login success function to set username in profile
+// Modify your existing login function to call updateTurnIndicator instead of updateTurnIndicator
