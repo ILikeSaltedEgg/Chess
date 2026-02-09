@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Pixel Chess</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Screen -->
+        <div id="authScreen" class="auth-screen">
+            <h1>♟️ PIXEL CHESS</h1>
+            
+            <div id="loginForm">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="loginUsername" placeholder="Enter username">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password">
+                </div>
+                <button class="btn" onclick="login()">LOGIN</button>
+                <button class="btn btn-secondary" onclick="showSignup()">CREATE ACCOUNT</button>
+                <div id="loginError" class="error-message"></div>
+            </div>
+
+            <div id="signupForm" class="hidden">
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="signupUsername" placeholder="Choose username">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="Choose password">
+                </div>
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm password">
+                </div>
+                <button class="btn" onclick="signup()">SIGN UP</button>
+                <button class="btn btn-secondary" onclick="showLogin()">BACK TO LOGIN</button>
+                <div id="signupError" class="error-message"></div>
+                <div id="signupSuccess" class="success-message"></div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen">
+            <div class="game-header">
+                <div class="user-info">
+                    Welcome, <span id="currentUser"></span>!
+                </div>
+                <button class="logout-btn" onclick="logout()">LOGOUT</button>
+            </div>
+
+            <div class="game-container">
+                <div class="board-wrapper">
+                    <div id="chessBoard" class="board"></div>
+                </div>
+
+                <div class="game-info">
+                    <h2>GAME STATUS</h2>
+                    <div class="turn-indicator" id="turnIndicator">
+                        White's Turn
+                    </div>
+                    <div id="statusMessage" class="status-message hidden"></div>
+                    <button class="new-game-btn" onclick="newGame()">NEW GAME</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
