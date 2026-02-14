@@ -1,6 +1,3 @@
--- Chess Game Database Schema
--- Run this script to create the database and tables
-
 -- Create database
 CREATE DATABASE IF NOT EXISTS chess_game;
 USE chess_game;
@@ -53,7 +50,6 @@ CREATE TABLE IF NOT EXISTS user_stats (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Insert default admin user (password: admin123)
 -- Note: In production, use proper password hashing!
 INSERT INTO users (username, password) VALUES ('admin', 'admin123') 
 ON DUPLICATE KEY UPDATE username=username;
@@ -73,11 +69,10 @@ SELECT
 FROM users u
 LEFT JOIN user_stats s ON u.user_id = s.user_id;
 
--- Show tables
 SHOW TABLES;
 
--- Show structure
 DESCRIBE users;
 DESCRIBE game_states;
 DESCRIBE game_history;
+
 DESCRIBE user_stats;
