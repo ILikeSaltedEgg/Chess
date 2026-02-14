@@ -8,7 +8,6 @@ require_once 'config.php';
 
 session_start();
 
-// Destroy the session
 $_SESSION = array();
 session_destroy();
 
@@ -16,4 +15,5 @@ echo json_encode([
     'success' => true,
     'message' => 'Logged out successfully'
 ]);
+
 ?>
