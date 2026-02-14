@@ -411,7 +411,6 @@ body {
     font-size: 1.1em;
 }
 
-/* Animations */
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.6; }
@@ -428,7 +427,6 @@ body {
     }
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -502,3 +500,4 @@ body {
     }
 
 }
+
