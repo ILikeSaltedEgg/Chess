@@ -7,8 +7,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 require_once 'config.php';
 
 session_start();
-
-// Check if user is logged in
+
 if (!isset($_SESSION['user_id'])) {
     echo json_encode([
         'success' => false,
