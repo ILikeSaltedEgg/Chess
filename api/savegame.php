@@ -33,7 +33,7 @@ $checkStmt->execute();
 $result = $checkStmt->get_result();
 
 if ($result->num_rows > 0) {
-    // Update existing game state
+    
     $stmt = $conn->prepare("UPDATE game_states SET board_state = ?, current_turn = ?, game_over = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?");
     $stmt->bind_param("sssi", $board_state, $current_turn, $game_over, $user_id);
 } else {
