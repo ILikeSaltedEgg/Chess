@@ -26,8 +26,7 @@ $board_state = json_encode($data['board'] ?? []);
 $current_turn = $data['currentTurn'] ?? 'white';
 $game_over = $data['gameOver'] ?? false;
 $user_id = $_SESSION['user_id'];
-
-// Check if game state already exists for this user
+
 $checkStmt = $conn->prepare("SELECT game_id FROM game_states WHERE user_id = ?");
 $checkStmt->bind_param("i", $user_id);
 $checkStmt->execute();
