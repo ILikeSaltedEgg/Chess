@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
     $stmt = $conn->prepare("UPDATE game_states SET board_state = ?, current_turn = ?, game_over = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?");
     $stmt->bind_param("sssi", $board_state, $current_turn, $game_over, $user_id);
 } else {
-    // Insert new game state
+    
     $stmt = $conn->prepare("INSERT INTO game_states (user_id, board_state, current_turn, game_over) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("isss", $user_id, $board_state, $current_turn, $game_over);
 }
