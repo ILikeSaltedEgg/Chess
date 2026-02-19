@@ -30,8 +30,7 @@ if (strlen($password) < 4) {
     ]);
     exit;
 }
-
-// Check if username exists
+
 $stmt = $conn->prepare("SELECT user_id FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
