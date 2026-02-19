@@ -22,8 +22,7 @@ if (empty($username) || empty($password)) {
     ]);
     exit;
 }
-
-// Get user
+
 $stmt = $conn->prepare("SELECT user_id, username, password FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
