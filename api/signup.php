@@ -14,8 +14,7 @@ if (!$data) {
 
 $username = trim($data['username'] ?? '');
 $password = $data['password'] ?? '';
-
-// Validation
+
 if (empty($username) || empty($password)) {
     echo json_encode([
         'success' => false,
